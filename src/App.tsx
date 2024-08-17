@@ -3,11 +3,14 @@ import { defaultTheme } from "./styles/themes/default"
 import { GlobalStyle } from "./styles/global"
 import { BrowserRouter } from "react-router-dom"
 import { Router } from "./Router"
+import { GithubProvider } from "./contexts/GithubContext"
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
-        <Router />
+        <GithubProvider>
+          <Router />
+        </GithubProvider>
       </BrowserRouter>
       <GlobalStyle />
     </ThemeProvider>

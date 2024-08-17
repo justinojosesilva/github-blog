@@ -1,33 +1,44 @@
 import { FaCalendarDay, FaChevronLeft, FaComment, FaGithub } from "react-icons/fa";
 import { PostInfoContainer, PostInfoFooter, PostInfoHeader } from "./styles";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import { dateFormatterRelativeToNow } from "../../../../utils/formatter";
 
-export function PostInfo() {
+interface PostInfoProps {
+  createdAt: string
+  title: string
+  url: string
+  comments: number
+  login: string
+}
+
+export function PostInfo({createdAt, title, url, comments, login}: PostInfoProps) {
+  console.log(createdAt)
   return (
     <PostInfoContainer>
       <PostInfoHeader>
-        <a href="#">
+        <Link to='/'>
           <FaChevronLeft />
           VOLTAR
-        </a>
-        <a href="#">
+        </Link>
+        <Link to={url} target="_blank">
           VER NO GITHUB 
           <FaArrowUpRightFromSquare />
-        </a>
+        </Link>
       </PostInfoHeader>
-      <h1>JavaScript data types and data structures</h1>
+      <h1>{title}</h1>
       <PostInfoFooter>
         <span>
           <FaGithub />
-          cameronwll
+          {login}
         </span>
         <span>
           <FaCalendarDay />
-          Há 1 dia
+          {dateFormatterRelativeToNow(new Date())}
         </span>
         <span>
           <FaComment />
-          5 comentários
+          {comments} comentários
         </span>
       </PostInfoFooter>
     </PostInfoContainer>

@@ -1,18 +1,40 @@
+import { useParams } from "react-router-dom";
 import { PostInfo } from "./components/PostInfo";
 import { PostContainer, PostDescription } from "./styles";
+import { useContext, useEffect } from "react";
+import { GithubContext } from "../../contexts/GithubContext";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm"
 
 export function Post() {
+  const { number } = useParams()
+  const {issue, getIssue, user} = useContext(GithubContext)
+  console.log('number', number)
+
+  const loadIssue = () => {
+    console.log('number', number)
+    getIssue(Number(number))
+  }
+
+  useEffect(() => {
+    loadIssue()
+  }, [])
+
   return (
     <PostContainer>
-      <PostInfo />
+      <PostInfo 
+        createdAt={issue.created_at}
+        title={issue.title}
+        url={issue.html_url}
+        comments={issue.comments}
+        login={user.login}
+      />
 
       <PostDescription>
-        Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn.
-
-        Dynamic typing
-        JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types:
+        <Markdown remarkPlugins={[remarkGfm]}>
+          {issue.body}
+        </Markdown>        
       </PostDescription>
-      
     </PostContainer>
   )
 }

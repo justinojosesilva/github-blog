@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const CardContainer = styled.article`
+export const CardContainer = styled(Link)`
   width: 100%;
   padding: 3.2rem;
   border-radius: 10px;
   background: ${(props) => props.theme["base-post"]};
+  text-decoration: none;
 
   &:hover {
     border: 2px solid ${(props) => props.theme["base-label"]};
@@ -17,7 +19,7 @@ export const CardTitle = styled.div`
   gap: 1.6rem;
 
   > h1 {
-    width: 28.3rem;
+    width: 28rem;
     font-size: 2rem;
     font-weight: 700;
     line-height: 160%;
